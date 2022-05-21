@@ -97,7 +97,7 @@ const listMeetings = (maxResults = 10, timeMax = moment().add(7, 'days').toISOSt
             console.log(error.message);
             reject('Erreur lors de la recuperation des meetings');
         } else {
-            if (result.data.items) {
+            if (result.data.items.length > 0) {
                 let final = [];
                 result.data.items.forEach((item, index) => {
                     let startDate = new Date(Date.parse(item.start.dateTime));

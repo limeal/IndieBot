@@ -7,6 +7,19 @@ const commands = [
 	new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
     new SlashCommandBuilder().setName('calendar').setDescription('Redirect to calendar'),
     new SlashCommandBuilder().setName('cercle').setDescription('Replies with yellow circle!'),
+    new SlashCommandBuilder().setName('pingoo')
+        .setDescription('Pingoo a person')
+        .addIntegerOption(option =>
+            option
+                .setName('ping_number')
+                .setDescription('Number of time to ping by default 1')
+                .setMinValue(1)
+            )
+        .addStringOption(option =>
+            option
+                .setName('people_id')
+                .setDescription('Id of people to ping by default ethan')
+            ),
     new SlashCommandBuilder().setName('deadline')
         .setDescription('Get deadline of projects')
         .addSubcommand(subcommand =>

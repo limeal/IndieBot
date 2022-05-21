@@ -3,6 +3,7 @@ const { meetingTask, listMeetings, channelId } = require('./tasks/meeting');
 const moment = require('moment');
 const calendarTask = require('./tasks/calendar');
 const deadlineTask = require('./tasks/deadline');
+const pingooTask = require('./tasks/pingoo');
 require('dotenv').config();
 require('moment-countdown');
 
@@ -15,7 +16,8 @@ let commands = [
     { name: 'cercle', task: async (interaction) => { await interaction.reply('Pong!') }},
     { name: 'calendar', task: calendarTask },
     { name : 'meeting', task: meetingTask },
-    { name: 'deadline', task: deadlineTask }
+    { name: 'deadline', task: deadlineTask },
+    { name: 'pingoo', task: pingooTask },
 ]
 
 const checkMeeting = async () => {
