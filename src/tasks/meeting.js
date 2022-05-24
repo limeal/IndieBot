@@ -104,7 +104,7 @@ const listMeetings = (maxResults = 10, timeMax = moment().add(7, 'days').toISOSt
                     let endDate = new Date(Date.parse(item.end.dateTime));
 
                     const formatDate = (date) => { return date.getDate() + '/' + (date.getMonth() + 1) + ' ' + (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()); }
-                    final.push({index: index, start: formatDate(startDate), end: formatDate(endDate), summary: item.summary || "", startDate})
+                    final.push({index: index, start: formatDate(startDate), end: formatDate(endDate), summary: item.summary || "", startDate, id: item.id})
                 })
                 resolve(final);
           } else {

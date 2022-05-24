@@ -20,25 +20,25 @@ let commands = [
     { name: 'pingoo', task: pingooTask },
 ]
 
-const checkMeeting = async () => {
+const checkMeeting = async (format) => {
     try {
-        const result = await listMeetings(1, moment().add(1, 'hours').toISOString());
+        const result = await listMeetings(1, moment().add(1, format).toISOString());
         if (result.length === 0) return;
-        if (registered_pinged.find(elem => elem === result[0].summary) !== undefined) return;
-        const channel = await client.channels.fetch("977316209919946762");
+        if (registered_pinged.find(elem => (elem.format === format && elem.id === result[0].id)) !== undefined) return;
+        const channel = await client.channels.fetch("907206905972265000");
         if (!channel) return;
         channel.send('@everyone Un meeting sur le sujet ' + result[0].summary + ' commencera d\'ici (' + moment(result[0].startDate).countdown().toString() + ')\n');
-        registered_pinged.push(result[0].summary);
-    } catch (e) {
-        console.log(e)
-    }
+        registered_pinged.push({ format, id: result[0].id });
+    } catch (e) {}
 };
 
 client.once('ready', () => {
     console.log('Server ready to listen');
 
-    checkMeeting();
-    setInterval(checkMeeting, 10 * 60 * 1000);
+    checkMeeting('hours');
+    checkMeeting('days');
+    setInterval(() => checkMeeting('hours'), 10 * 60 * 1000);
+    setInterval(() => checkMeeting('days'), 10 * 60 * 1000);
 });
 
 client.on('interactionCreate', async interaction => {
